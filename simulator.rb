@@ -3,10 +3,6 @@ class VerifierSimulator
   def initialize
   end
 
-  # TO-DO: Create methods to check for validity of files, args, hash, times, etc.
-  #
-  #
-
   # Check if we have a valid user input
   def check(args)
     return true unless args.count != 1
@@ -42,8 +38,8 @@ class VerifierSimulator
   def check_time(curr, prev)
     curr_time = curr.split('.')[0]
     prev_time = prev.split('.')[0]
-    curr_nano = curr_time.split('.')[1]
-    prev_nano = prev_time.split('.')[1]
+    curr_nano = curr.split('.')[1]
+    prev_nano = prev.split('.')[1]
 
     return 1 if (curr_time.to_i - prev_time.to_i) > 0
 

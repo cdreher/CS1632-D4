@@ -1,4 +1,4 @@
-require_relative 'simulator.rb'
+require_relative 'simulator'
 
 # Runner class -> essentially run the Billcoin simulator
 class VerifierRunner
@@ -32,7 +32,6 @@ class VerifierRunner
       check_order(blockchain)
       check_time(blockchain)
       check_hash(blockchain)
-
     end
   end
 
