@@ -8,6 +8,15 @@ class VerifierRunner
 
   # Run the program
   def run(args)
+    if @sim.check(args) && @sim.isFile(args)
+      filename = args[0]
+      file = File.open filename
+      puts "File IS VALID"
+      file.close
+    else
+      puts 'File is invalid.'
+      exit 1
+    end
   end
 
 end
