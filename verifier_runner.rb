@@ -15,9 +15,10 @@ class VerifierRunner
       filename = args[0]
       file = File.open filename
       parse(file)
+      @sim.print
       file.close
     else
-      puts 'File is invalid.'
+      puts 'File is invalid or missing.'
       exit 1
     end
   end
@@ -32,6 +33,18 @@ class VerifierRunner
       check_order(blockchain)
       check_time(blockchain)
       check_hash(blockchain)
+
+      if @sim.check_hash(hashed, blockchain[4].chomp)
+        puts 'Line ' + blockchain[0] + ': String ' + s + ' hash set to '
+        puts blockchain[4].chomp + ', should be ' + hashed
+        puts 'BLOCKCHAIN INVALID'
+        exit 1
+      end
+
+      @sim.complete_transactions(blockchain[2])
+      @previous_hash = blockchain[4].chomp
+      @previous_time = blockchain[3]
+      @previous_block = blockchain[0]
     end
   end
 
