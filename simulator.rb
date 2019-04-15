@@ -14,7 +14,7 @@ class VerifierSimulator
   end
 
   # Check if file is passed in
-  def is_file(args)
+  def check_is_file(args)
     return false if args.empty?
     return false unless File.file?(args[0])
 

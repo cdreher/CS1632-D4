@@ -11,7 +11,7 @@ class VerifierRunner
 
   # Run the program
   def run(args)
-    if @sim.check(args) && @sim.is_file(args)
+    if @sim.check(args) && @sim.check_is_file(args)
       filename = args[0]
       file = File.open filename
       parse(file)
