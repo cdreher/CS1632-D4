@@ -28,7 +28,7 @@ class SimulatorTest < Minitest::Test
     assert_equal true, sim.check(['test'])
   end
 
-  # UNIT TESTS FOR METHOD isFile(args)
+  # UNIT TESTS FOR METHOD if_file(args)
   # Equivalance classes:
   # If args[0] is a file -> returns true
   # If args[0] is not a file -> returns false
@@ -36,25 +36,25 @@ class SimulatorTest < Minitest::Test
   # Test that args is not a file
   def test_invalid_file
     sim = VerifierSimulator.new
-    assert_equal false, sim.isFile(['test'])
+    assert_equal false, sim.if_file(['test'])
   end
 
   # Tests args as an empty array
   def test_invalid_file2
     sim = VerifierSimulator.new
-    assert_equal false, sim.isFile([])
+    assert_equal false, sim.if_file([])
   end
 
   # test multiple args in array
   def test_invalid_file3
     sim = VerifierSimulator.new
-    assert_equal false, sim.isFile(%w[test test2])
+    assert_equal false, sim.if_file(%w[test test2])
   end
 
   # Tests valid file
   def test_valid_file
     sim = VerifierSimulator.new
-    assert_equal true, sim.isFile(['sample.txt'])
+    assert_equal true, sim.if_file(['sample.txt'])
   end
 
   # UNIT TESTS FOR METHOD hash(hash_str)

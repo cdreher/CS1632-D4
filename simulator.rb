@@ -9,13 +9,15 @@ class VerifierSimulator
   # Check if we have a valid user input
   def check(args)
     return true unless args.count != 1
+
     false
   end
 
   # Check if file is passed in
-  def isFile(args)
+  def is_file(args)
     return false if args.empty?
     return false unless File.file?(args[0])
+
     true
   end
 
@@ -27,12 +29,13 @@ class VerifierSimulator
       x = x.unpack('U*')[0]
       total += ((x**3000) + (x**x) - (3**x)) * (7**x)
     end
-    (total % 65536).to_s(16)
+    (total % 65_536).to_s(16)
   end
 
   # Check order of blocks
   def out_of_order(curr, prev)
     return true unless (curr - prev) == 1
+
     false
   end
 
@@ -44,10 +47,11 @@ class VerifierSimulator
     curr_nano = curr.split('.')[1]
     prev_nano = prev.split('.')[1]
 
-    return 1 if (curr_time.to_i - prev_time.to_i) > 0
+    return 1 if (curr_time.to_i - prev_time.to_i).positive?
 
     if (curr_time.to_i - prev_time.to_i).zero?
       return 1 unless (curr_nano.to_i - prev_nano.to_i) <= 0
+
     end
     0
   end
@@ -55,6 +59,7 @@ class VerifierSimulator
   # Check hash
   def check_hash(calc, curr)
     return true unless calc.eql? curr
+
     false
   end
 
@@ -69,7 +74,7 @@ class VerifierSimulator
   # Check for negative value in billcoins
   def check_negatives
     @people.each do |key, value|
-      if value < 0 && key != 'SYSTEM'
+      if value.negative? && key != 'SYSTEM'
         puts 'Invalid block, address ' + key + ' has ' + value.to_s + ' billcoins!'
         puts 'BLOCKCHAIN INVALID'
         return true
@@ -81,7 +86,9 @@ class VerifierSimulator
   # Update billcoin transactions
   def update(person, billcoins)
     return nil unless person.is_a? String
+
     return nil unless billcoins.is_a? Numeric
+
     val_to_store = if @people.key?(person)
                      @people[person] + billcoins
                    else
@@ -93,7 +100,9 @@ class VerifierSimulator
   # Handles transactions in transaction string from each line in file
   def complete_transactions(transaction)
     return false if transaction.is_a? Numeric
+
     return false unless transaction.include? '>'
+
     valid = false
     transactions = transaction.split(':')
 
